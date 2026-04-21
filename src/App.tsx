@@ -66,11 +66,11 @@ export default function App() {
       if (modo === 'anuncio') {
         const result = await generarAnuncio(compressed);
         setAnuncio(result);
-        setHistorial(prev => [{ tipo: 'anuncio', fecha, imagen: compressed, resultado: result }, ...prev].slice(0, 20));
+        setHistorial(prev => [{ tipo: 'anuncio' as const, fecha, imagen: compressed, resultado: result }, ...prev].slice(0, 20));
       } else {
         const result = await valuarProducto(compressed);
         setValuacion(result);
-        setHistorial(prev => [{ tipo: 'valuacion', fecha, imagen: compressed, resultado: result }, ...prev].slice(0, 20));
+        setHistorial(prev => [{ tipo: 'valuacion' as const, fecha, imagen: compressed, resultado: result }, ...prev].slice(0, 20));
       }
     } catch (err) {
       setError('Error al analizar la imagen. Verifica tu conexión e intenta de nuevo.');
