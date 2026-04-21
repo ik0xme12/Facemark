@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-fb-blue: #1877F2;
+  --color-fb-dark: #0866FF;
+  --color-fb-light: #E7F3FF;
+  --color-fb-bg: #F0F2F5;
+}
+
+@layer base {
+  body {
+    background-color: #F0F2F5;
+    font-family: system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+  }
+  #root { width: 100%; }
+}
+
+@layer utilities {
+  .animate-fade-in { animation: fadeIn 0.3s ease; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
