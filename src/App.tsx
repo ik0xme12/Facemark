@@ -73,7 +73,8 @@ export default function App() {
         setHistorial(prev => [{ tipo: 'valuacion' as const, fecha, imagen: compressed, resultado: result }, ...prev].slice(0, 20));
       }
     } catch (err) {
-      setError('Error al analizar la imagen. Verifica tu conexión e intenta de nuevo.');
+      const msg = err instanceof Error ? err.message : String(err);
+      setError(`Error: ${msg}`);
     } finally {
       setCargando(false);
     }
