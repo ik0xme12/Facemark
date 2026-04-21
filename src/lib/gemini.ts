@@ -48,7 +48,7 @@ Responde ÚNICAMENTE con un JSON válido con esta estructura exacta:
 }`;
 
   const result = await ai.models.generateContent({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.0-flash-lite',
     contents: [{ parts: [{ text: prompt }, imageToBase64Part(imageDataUrl)] }],
   });
   const text = result.text?.replace(/```json\n?|\n?```/g, '').trim() ?? '';
@@ -72,7 +72,7 @@ Responde ÚNICAMENTE con un JSON válido con esta estructura exacta:
 }`;
 
   const result = await ai.models.generateContent({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.0-flash-lite',
     contents: [{ parts: [{ text: prompt }, imageToBase64Part(imageDataUrl)] }],
   });
   const text = result.text?.replace(/```json\n?|\n?```/g, '').trim() ?? '';
