@@ -1,7 +1,6 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
-const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 
 function imageToBase64Part(dataUrl: string) {
   const [header, data] = dataUrl.split(',');
@@ -48,8 +47,11 @@ Responde ÚNICAMENTE con un JSON válido con esta estructura exacta:
   "consejosFoto": ["consejo1 para mejorar la foto", "consejo2", "consejo3"]
 }`;
 
-  const result = await model.generateContent([prompt, imageToBase64Part(imageDataUrl)]);
-  const text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
+  const result = await ai.models.generateContent({
+    model: 'gemini-2.0-flash',
+    contents: [{ parts: [{ text: prompt }, imageToBase64Part(imageDataUrl)] }],
+  });
+  const text = result.text?.replace(/```json\n?|\n?```/g, '').trim() ?? '';
   return JSON.parse(text) as Anuncio;
 }
 
@@ -69,7 +71,10 @@ Responde ÚNICAMENTE con un JSON válido con esta estructura exacta:
   "consejo": "consejo clave para vender este producto en CDMX"
 }`;
 
-  const result = await model.generateContent([prompt, imageToBase64Part(imageDataUrl)]);
-  const text = result.response.text().replace(/```json\n?|\n?```/g, '').trim();
+  const result = await ai.models.generateContent({
+    model: 'gemini-2.0-flash',
+    contents: [{ parts: [{ text: prompt }, imageToBase64Part(imageDataUrl)] }],
+  });
+  const text = result.text?.replace(/```json\n?|\n?```/g, '').trim() ?? '';
   return JSON.parse(text) as Valuacion;
 }
